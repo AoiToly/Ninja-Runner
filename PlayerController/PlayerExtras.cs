@@ -1,0 +1,44 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace NinjaRunner
+{
+    public struct FrameInput
+    {
+        public float X, Y;
+        public bool JumpDown;
+        public bool JumpUp;
+    }
+
+    /// <summary>
+    /// help to identify the player's present state
+    /// </summary>
+    public interface IPlayerController
+    {
+        public Vector3 Velocity { get; }
+        public FrameInput Input { get; }
+        public bool JumpingThisFrame { get; }
+        public bool LandingThisFrame { get; }
+        public Vector3 RawMovement { get; }
+        public bool Grounded { get; }
+    }
+
+    public interface IExtendedPlayerController : IPlayerController
+    {
+        public bool Dashing { get; set; }
+        public bool Attacking { get; set; }
+    }
+
+    public struct RayRange
+    {
+        public RayRange(float x1, float y1, float x2, float y2, Vector2 dir)
+        {
+            Start = new Vector2(x1, y1);
+            End = new Vector2(x2, y2);
+            Dir = dir;
+        }
+
+        public readonly Vector2 Start, End, Dir;
+    }
+}
